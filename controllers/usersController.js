@@ -383,11 +383,24 @@ const requestAccountDeletion = async (req, res) => {
         },
       });
       const mailOptions = {
-        to: user.email,
-        from: process.env.EMAIL_USER,
-        subject: "Account Deletion Verification Code",
-        text: `Your verification code to confirm account deletion is: ${deletionCode}. This code is required to permanently delete your account. If you did not request this, please ignore this email.`,
-      };
+  from: `"CodeMap Support" <${process.env.EMAIL_USER}>`,
+  to: user.email,
+  subject: "Account Deletion Verification Code",
+  text: `
+Dear ${user.name || "User"},
+
+We received a request to permanently delete your CodeMap account associated with this email address. To proceed with this request, please use the verification code below:
+
+Verification Code: ${deletionCode}
+
+This code is required to confirm the deletion of your account. If you did not initiate this request, please disregard this message — no further action will be taken without your confirmation.
+
+If you have any questions or need assistance, feel free to contact our support team.
+
+Best regards,  
+CodeMap Support Team
+  `.trim(),
+};
       await transporter.sendMail(mailOptions);
       console.log(`Account deletion code sent to ${user.email}`);
       res.status(200).json({ message: "Verification code sent to your email" });

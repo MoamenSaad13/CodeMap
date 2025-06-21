@@ -49,7 +49,7 @@ https://codemapuser.netlify.app/reset-password/${token}
 If you did not request this password reset, you can safely ignore this email.
 
 Best regards,  
- Codemap Team
+CodeMap
   `.trim(),
 };
 
