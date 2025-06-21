@@ -34,11 +34,25 @@ async function requestPasswordReset(req, res) {
     });
 
     const mailOptions = {
-      to: user.email,
-      from: process.env.EMAIL_USER,
-      subject: "Password Reset Request",
-      text: `Reset your password using this link: https://codemapuser.netlify.app/reset-password/${token}`,
-    };
+  to: user.email,
+  from: process.env.EMAIL_USER,
+  subject: "Reset Your Password",
+  text: `
+Dear ${user.first_name || user.last_name || 'User'},
+
+We received a request to reset the password for your account associated with this email address.
+
+To proceed, please click the link below or paste it into your browser:
+
+https://codemapuser.netlify.app/reset-password/${token}
+
+If you did not request this password reset, you can safely ignore this email.
+
+Best regards,  
+ Codemap Team
+  `.trim(),
+};
+
 
     await transporter.sendMail(mailOptions);
     res.status(200).json({ message: "Password reset email sent successfully" });
