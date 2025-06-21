@@ -863,30 +863,8 @@ const getUserById = async (req, res) => {
     return res.status(403).json({ message: "Forbidden: You do not have permission to access this user\\\\\\\"s details." });
   }
   try {
-const user = await User.findById(userIdFromParams)
-  .select("-password -verificationCode -pendingEmail -deletionCode -resetPasswordToken -resetPasswordExpires")
-  .populate({
-    path: "roadmaps",
-    select: "title",
-    populate: {
-      path: "stages",
-      select: "title",
-      populate: {
-        path: "categories",
-        select: "title",
-        populate: {
-          path: "lessons",
-          select: "title",
-          populate: {
-            path: "tasks",
-            select: "title"
-          }
-        }
-      }
-    }
-  })
-  .lean();
-      if (!user) {
+    const user = await User.findById(userIdFromParams).select("-password -verificationCode -pendingEmail -deletionCode -resetPasswordToken -resetPasswordExpires").lean();
+    if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
     res.json(user);

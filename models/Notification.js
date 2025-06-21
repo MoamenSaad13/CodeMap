@@ -185,7 +185,6 @@ const notificationSchema = new mongoose.Schema(
     expiresAt: {
       type: Date,
       default: null,
-      index: true,
     },
 
     /**
