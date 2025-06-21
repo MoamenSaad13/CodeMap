@@ -26,5 +26,5 @@ router.delete('/delete/:id',checkAdminRole, categoryController.deleteCategory);
 router.get('/roadmap/:id', categoryController.getCategoriesByRoadmap);
 
 // Get categories for a specific stage
-router.get('/stage/:id',checkAdminRole, categoryController.getCategoriesByStage);
+router.get('/stage/:id', categoryController.getCategoriesByStage);
 module.exports = router;
