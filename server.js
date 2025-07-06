@@ -11,7 +11,6 @@ const cookieParser = require("cookie-parser");
 const passport = require("passport"); // Import Passport
 const passportSetup = require("./config/passport-setup"); // Import Passport configuration
 
-
 // --- Route Imports ---
 const rootRoutes = require("./routes/root");
 const authRoutes = require("./routes/authRoutes");
@@ -96,15 +95,13 @@ app.all("*", (req, res) => {
   }
 });
 
+// --- Server Startup ---
 mongoose.connection.once("open", () => {
   console.log("Connected to MongoDB");
-  // Remove app.listen() for Vercel deployment
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
 });
-
-// At the end of your server.js file, make sure you export the app instance:
-module.exports = app;
-
-
 
 mongoose.connection.on("error", (err) => {
   console.error("MongoDB connection error:", err);
