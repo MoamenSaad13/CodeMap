@@ -7,6 +7,9 @@ const checkAdminRole = require("../middleware/checkAdminRole");
 
 router.use(authMiddleware);
 
+// Get categories for a specific stage
+router.get('/stage/:id', categoryController.getCategoriesByStage);
+
 // Create a new category
 router.post('/create',checkAdminRole, categoryController.createCategory);
 
@@ -25,6 +28,5 @@ router.delete('/delete/:id',checkAdminRole, categoryController.deleteCategory);
 // Get categories for a specific roadmap
 router.get('/roadmap/:id', categoryController.getCategoriesByRoadmap);
 
-// Get categories for a specific stage
-router.get('/stage/:id',checkAdminRole, categoryController.getCategoriesByStage);
+
 module.exports = router;
